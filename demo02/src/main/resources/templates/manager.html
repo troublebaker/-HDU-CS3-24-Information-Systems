@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>用户管理</title>
+</head>
+<body>
+<h1>用户管理</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>姓名</th>
+        <th>角色</th>
+        <th>登录次数</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.login}"></td>
+        <td th:text="${user.status}"></td>
+        <td>
+            <a th:href="@{/manager/edit(id=${user.id})}">编辑</a>
+            <a th:href="@{/manager/delete(id=${user.id})}" th:onclick="return confirm('确定要删除吗？');">删除</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 分页控件 -->
+<div>
+    <span>当前页: <span th:text="${currentPage}"></span> / <span th:text="${totalPages}"></span></span>
+    <div>
+        <a th:if="${currentPage > 1}" th:href="@{/manager(page=${currentPage - 1})}">上一页</a>
+        <a th:if="${currentPage < totalPages}" th:href="@{/manager(page=${currentPage + 1})}">下一页</a>
+    </div>
+</div>
+
+<!-- 添加用户按钮 -->
+<div>
+    <a href="/manager/add">添加用户</a>
+</div>
+<div style="margin-top: 20px;">
+    <button onclick="window.location.href='/'">回到首页</button>
+
+    <button onclick="window.location.href='/logout'">logout</button>
+</div>
+</body>
+</html>

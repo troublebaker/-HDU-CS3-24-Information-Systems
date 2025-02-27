@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>教师课程列表</title>
+</head>
+<body>
+<h1>教师课程列表</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>课程名称</th>
+        <th>描述</th>
+        <th>时长</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="course : ${courses}">
+        <td th:text="${course.id}"></td>
+        <td th:text="${course.name}"></td>
+        <td th:text="${course.description}"></td>
+        <td th:text="${course.duration}"></td>
+        <td th:text="${course.status}"></td>
+        <td>
+            <a th:href="@{/teacher/edit(id=${course.id})}">编辑</a>
+            <a th:href="@{/teacher/delete(id=${course.id})}" th:onclick="return confirm('确定要删除吗？');">删除</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- 分页控件 -->
+<div>
+    <span>当前页: <span th:text="${currentPage}"></span> / <span th:text="${totalPages}"></span></span>
+    <div>
+        <a th:if="${currentPage > 1}" th:href="@{/teacher(page=${currentPage - 1}, size=10)}">上一页</a>
+        <a th:if="${currentPage < totalPages}" th:href="@{/teacher(page=${currentPage + 1}, size=10)}">下一页</a>
+    </div>
+</div>
+
+<!-- 添加课程按钮 -->
+<div>
+    <a href="/teacher/add">添加课程</a>
+</div>
+<div style="margin-top: 20px;">
+    <button onclick="window.location.href='/'">回到首页</button>
+
+    <button onclick="window.location.href='/logout'">logout</button>
+</div>
+</body>
+</html>

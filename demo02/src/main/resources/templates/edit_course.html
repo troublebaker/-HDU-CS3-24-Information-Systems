@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>修改课程</title>
+</head>
+<body>
+<h1>修改课程</h1>
+<form th:action="@{/teacher/edit}" method="post" th:object="${course}">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label for="name">课程名称:</label>
+    <input type="text" th:field="*{name}" maxlength="50" required/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">课程名称错误</div>
+    <br/>
+
+    <label for="description">描述:</label>
+    <textarea th:field="*{description}" maxlength="200" required></textarea>
+    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">描述错误</div>
+    <br/>
+
+    <label for="duration">时长 (分钟):</label>
+    <input type="number" th:field="*{duration}" min="60" max="240" required/>
+    <div th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}">时长必须在60到240分钟之间</div>
+    <br/>
+
+    <label for="status">状态码:</label>
+    <input type="number" th:field="*{status}" min="2" max="20" required/>
+    <div th:if="${#fields.hasErrors('status')}" th:errors="*{status}">状态码必须在2到20之间</div>
+    <br/>
+
+    <button type="submit">提交</button>
+    <a href="/teacher">取消</a>
+</form>
+<div style="margin-top: 20px;">
+    <button onclick="window.location.href='/'">回到首页</button>
+
+    <button onclick="window.location.href='/logout'">logout</button>
+</div>
+</body>
+</html>

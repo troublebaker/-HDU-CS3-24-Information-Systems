@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>用户注册</title>
+</head>
+<body>
+<h1>用户注册</h1>
+<form th:action="@{/register}" method="post" th:object="${users}">
+  <input type="hidden" th:field="*{id}"/>
+
+  <label for="name">姓名:</label>
+  <input type="text" th:field="*{name}" required/>
+  <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">姓名错误</div>
+  <br/>
+
+  <label for="password">密码:</label>
+  <input type="password" th:field="*{password}" required/>
+  <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">密码错误</div>
+  <br/>
+
+  <label for="role">角色:</label>
+  <select th:field="*{role}" required>
+    <option value="">请选择角色</option>
+    <option value="学生">学生</option>
+    <option value="管理员">管理员</option>
+    <option value="教师">教师</option>
+  </select>
+  <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}">角色错误</div>
+  <br/>
+
+  <label for="login">登录次数:</label>
+  <input type="number" th:field="*{login}" required/>
+  <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}">登录次数错误</div>
+  <br/>
+
+  <label for="status">状态:</label>
+  <input type="number" th:field="*{status}" required/>
+  <div th:if="${#fields.hasErrors('status')}" th:errors="*{status}">状态错误</div>
+  <br/>
+
+  <button type="submit">注册</button>
+
+</form>
+<div style="margin-top: 20px;">
+  <button onclick="window.location.href='/login'">return login</button>
+  <a th:href="@{/index}" class="btn btn-secondary">return index</a>
+</div>
+</body>
+</html>
